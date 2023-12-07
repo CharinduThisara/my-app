@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { render } from "react-dom";
+import { AuthProvider } from "@asgardeo/auth-react";
+import { useAuthContext } from "@asgardeo/auth-react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const AppContent = () => {
+        const { state, signIn, signOut } = useAuthContext();
+      
+        return (
+          <div className="App">
+            {
+              state.isAuthenticated
+                ? (
+                  <div>
+                    <ul>
+                      <li>{state.username}</li>
+                    </ul>
+      
+                    <button onClick={() => signOut()}>Logout</button>
+                  </div>
+                )
+                : <button onClick={() => signIn()}>Login</button>
+            }
+          </div>
+        );
+      }
 
-export default App;
+
+const Index = () => (
+    <AuthProvider
+        config={ {
+            signInRedirectURL: "https://localhost:3000",
+            signOutRedirectURL: "https://localhost:3000",
+            clientID: "h6kNe9cdohY7BjtHSTARSOc1tOAa",
+            baseUrl: "https://api.asgardeo.io/t/testingor",
+            scope: [ "openid","profile" ]
+        } }
+    >
+        { <AppContent/> }
+    </AuthProvider>
+);
+
+
+export default Index;      
+// render((<Index />), document.getElementById("root"));
