@@ -29,8 +29,8 @@ const AppContent = () => {
 const Index = () => (
     <AuthProvider
         config={ {
-            signInRedirectURL: "https://localhost:3000",
-            signOutRedirectURL: "https://localhost:3000",
+            signInRedirectURL: "http://localhost:3000",
+            signOutRedirectURL: "http://localhost:3000",
             clientID: "h6kNe9cdohY7BjtHSTARSOc1tOAa",
             baseUrl: "https://api.asgardeo.io/t/testingor",
             scope: [ "openid","profile" ]
@@ -41,5 +41,5 @@ const Index = () => (
 );
 
 
-export default Index;      
+export default Index;    
 // render((<Index />), document.getElementById("root"));
